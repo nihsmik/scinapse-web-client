@@ -1,10 +1,11 @@
+import * as Loadable from "react-loadable";
 import * as React from "react";
 import { Route, Switch, match, withRouter, RouteComponentProps } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { connect, Dispatch } from "react-redux";
 import { Header, FeedbackButton } from "./components/layouts";
 import Home from "./components/home";
-import ArticleSearch from "./components/articleSearch";
+// import ArticleSearch from "./components/articleSearch";
 import AuthComponent from "./components/auth";
 import PaperShow, { PaperShowMatchParams } from "./components/paperShow";
 import AuthorShow, { AuthorShowMatchParams } from "./components/authorShow";
@@ -52,6 +53,19 @@ interface ServerRoutesMap {
   component: React.ComponentClass;
   exact?: boolean;
   loadData?: (params: LoadDataParams<any>) => Promise<any>;
+}
+
+const LoadableArticleSearch = Loadable({
+  loader: () => import(/* webpackChunkName: "articleSearch" */ "./components/articleSearch"),
+  loading() {
+    return <div>Loading...</div>;
+  },
+}) as any;
+
+class ArticleSearch extends React.PureComponent {
+  public render() {
+    return <LoadableArticleSearch />;
+  }
 }
 
 export const routesMap: ServerRoutesMap[] = [

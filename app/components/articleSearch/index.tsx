@@ -41,7 +41,7 @@ function mapStateToProps(state: AppState) {
 }
 
 @withStyles<typeof ArticleSearch>(styles)
-class ArticleSearch extends React.PureComponent<ArticleSearchContainerProps, {}> {
+class ArticleSearch extends React.PureComponent<ArticleSearchContainerProps> {
   public componentDidMount() {
     const { articleSearchState, dispatch, match, location } = this.props;
     const currentParams = {

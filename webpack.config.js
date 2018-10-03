@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    chunkFilename: "[name].[chunkhash].bundle.js",
   },
   devtool: "inline-source-map",
   resolve: {
@@ -24,6 +25,9 @@ module.exports = {
     noEmitOnErrors: false, // production true
     providedExports: true,
     minimize: false,
+    splitChunks: {
+      chunks: "all",
+    },
   },
   module: {
     rules: [
@@ -89,7 +93,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: "app/index.ejs",
-      inject: false,
+      inject: true,
       NODE_ENV: "development",
     }),
   ],
